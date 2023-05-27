@@ -1,25 +1,32 @@
-import sys
+# 최소로 비교하려면
+# 하나로 합쳐진 카드 수를 포함해서 항상 가장 작은 두개의 카드를 골라야 한다. 
+
+# -> 최초에 한번만 정렬하고 최솟값을 얻는 게 아니라 
+# 새로운 값이 계속 추가되어 그때마다 정렬해가면서 최솟값을 얻어야 되는 상황. 
+
+# 이럴 땐 sort나 다른 정렬방법으로 일일이 정렬하면 너무 오래 걸린다. 
+# 그에 반해 우선순위 큐는 새로운 값이 추가되는 상황에도 지속적으로 최솟값을 얻을 수 있게 최적화된 형태이다. 
+# -> 우선순위 큐 
+
+import heapq
 
 
-n = int(sys.stdin.readline())
-nums = []
+n = int(input())
+heap = []
 for _ in range(n):
-    nums.append(int(sys.stdin.readline()))
+    # 애초에 배열에 값을 삽입할때부터 heapq.heappush이용
+    # append로 넣고 sort하는 것보다 빠름. 
+    # heapq로 데이터 전부 넣고 전부 빼는 게 O(NlogN)
+    # append로 넣고 sort하면 O(N + NlogN)
+    heapq.heappush(heap, int(input()))
 
-nums.sort()
 sum = 0   
-while True:
-    tmp = nums[0] + nums[1]
+
+# 전부 합쳐질 때까지 반복
+while len(heap) > 1:
+    tmp = heapq.heappop(heap) + heapq.heappop(heap)
     sum += tmp
-    if len(nums) <= 2:
-        break
-    nums = nums[2:] + [tmp]
-    # 삽입정렬 : 거의 정렬되어 있을 때 유리하다. 
-    for i in range(len(nums)-1, 0, -1):
-        if nums[i] < nums[i-1]:
-            nums[i], nums[i-1] = nums[i-1], nums[i]
-        else:
-            break
+    heapq.heappush(heap, tmp)
 
     
 print(sum)

@@ -70,3 +70,11 @@ for i in array:
 print('최대힙 구현하기')
 for i in range(len(heap)):
     print(-heapq.heappop(heap))
+    
+
+# 최초에 배열이 있는데 heappush()로 다 다시 넣지 않아도 됨. 
+# 오름차순으로 정렬된 배열은 그 자체로 힙임.   
+print('heappush()로 넣지 않았지만 오름차순으로 정렬된 배열에 대해 heappop()해보기')
+array.sort()
+for _ in range(len(array)):
+    print(heapq.heappop(array))
