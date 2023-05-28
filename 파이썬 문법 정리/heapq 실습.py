@@ -1,8 +1,15 @@
+
+# heapq의 사용법
+
 # deque는 deque()로 deque 객체를 생성해서 사용. 
 # ex) queue = deque()   queue.popleft() 
 
 # heapq는 그냥 배열에다가 heapq.heappush, heapq.heappop메서드를 이용해 삽입, 삭제하여 heap구현. 
 # ex) array = []    heapq.heaqpush(array, 2)    heapq.heaqpop(array)
+
+
+# 시간 복잡도 
+# 힙에 원소를 전부 넣었다가 빼면 O(NlogN)
 
 
 import heapq
@@ -58,6 +65,7 @@ for i in range(len(heap)):
     print(heapq.heappop(heap))
 
 
+# heapq로 최대힙 구현하기 
 # heapq 라이브러리는 최소힙만 됨. (제일 작은 수가 먼저 나옴)
 # 최대힙을 구현하기 위해서는 값을 삽입할 때 부호를 바꿔서 넣고 삭제할 때 다시 부호를 바꿔 사용. 
 # ex) 2, 3, 4 -> -2, -3, -4   -4가 가장 작은 수이므로 가장 먼저 나옴. 
@@ -72,9 +80,15 @@ for i in range(len(heap)):
     print(-heapq.heappop(heap))
     
 
-# 최초에 배열이 있는데 heappush()로 다 다시 넣지 않아도 됨. 
-# 오름차순으로 정렬된 배열은 그 자체로 힙임.   
+
+# 오름차순으로 정렬된 배열은 그 자체로 힙이여서 heappop만 해도 되지만
+# 배열에 append로 전부 넣고 sort()를 하는 것보다 애초에 heappush로 넣는게 더 빠름. 
+# heapq를 사용할 때는 애초에 heappush로 넣자. 
 print('heappush()로 넣지 않았지만 오름차순으로 정렬된 배열에 대해 heappop()해보기')
 array.sort()
 for _ in range(len(array)):
     print(heapq.heappop(array))
+    
+    
+    
+    
